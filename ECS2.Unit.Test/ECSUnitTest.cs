@@ -11,19 +11,31 @@ namespace ECS2.Unit.Test
    [TestFixture]
    public class ECSUnitTest
    {
-      public ECS _uut;
-      public FakeHeater _FakeHeater;
-      public FakeTempSensor _FakeTempSensor;
+      public ECS uut;
+      public FakeHeater FakeHeater;
+      public FakeTempSensor FakeTempSensor;
 
       [SetUp]
       public void SetUp()
       {
-       _FakeHeater = new FakeHeater();
-       _FakeTempSensor = new FakeTempSensor();
-         _uut = new ECS(28,_FakeTempSensor,_FakeHeater);
+       FakeHeater = new FakeHeater();
+       FakeTempSensor = new FakeTempSensor();
+         uut = new ECS(28,FakeTempSensor,FakeHeater);
       }
 
       [Test]
+      public void uutRegulate_ThresHold28_SensorValue25_HeaterIsOn()
+      {
+         uut.Regulate();
+         Assert.That(FakeHeater.Tjek, Is.True);
+      }
 
+      [Test]
+      public void uutRegulate_ThresHold23_SensorValue25_HeaterIsOff()
+      {
+         uut.SetThreshold(23);
+         uut.Regulate();
+         Assert.That(FakeHeater.Tjek, Is.False);
+      }
    }
 }

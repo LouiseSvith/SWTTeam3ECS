@@ -22,7 +22,7 @@ namespace ECS2.Unit.Test
 
       bool IHeater.RunSelfTest()
       {
-         throw new NotImplementedException();
+         return true;
       }
    }
 }

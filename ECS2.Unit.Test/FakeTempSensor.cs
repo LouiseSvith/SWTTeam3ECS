@@ -12,12 +12,12 @@ namespace ECS2.Unit.Test
       
       public int GetTemp()
       {
-         
+         return 25;
       }
 
       public bool RunSelfTest()
       {
-         throw new NotImplementedException();
+         return true;
       }
    }
 }
