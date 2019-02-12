@@ -14,13 +14,15 @@ namespace ECS2.Unit.Test
       public ECS uut;
       public FakeHeater FakeHeater;
       public FakeTempSensor FakeTempSensor;
+      public FakeWindow FakeWindow;
 
       [SetUp]
       public void SetUp()
       {
        FakeHeater = new FakeHeater();
        FakeTempSensor = new FakeTempSensor();
-         uut = new ECS(28,FakeTempSensor,FakeHeater);
+         FakeWindow = new FakeWindow();
+         uut = new ECS(28,FakeTempSensor,FakeHeater,FakeWindow);
       }
 
       [Test]
@@ -28,6 +30,13 @@ namespace ECS2.Unit.Test
       {
          uut.Regulate();
          Assert.That(FakeHeater.Tjek, Is.True);
+    }
+
+      [Test]
+      public void uutRegulate_ThresHold28_SensorValue25_WindowIsClosed()
+      {
+         uut.Regulate();
+         Assert.That(FakeWindow.Tjek, Is.False);
       }
 
       [Test]
@@ -36,6 +45,14 @@ namespace ECS2.Unit.Test
          uut.SetThreshold(23);
          uut.Regulate();
          Assert.That(FakeHeater.Tjek, Is.False);
+
+      }
+      [Test]
+      public void uutRegulate_ThresHold23_SensorValue25_WindowIsOpen()
+      {
+         uut.SetThreshold(23);
+         uut.Regulate();
+      Assert.That(FakeWindow.Tjek, Is.True);
       }
    }
 }

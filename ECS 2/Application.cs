@@ -6,7 +6,8 @@
         {
             Heater heater = new Heater();
             TempSensor tempSensor = new TempSensor();
-            var ecs = new ECS(28, tempSensor, heater);
+           Window window = new Window();
+            var ecs = new ECS(28, tempSensor, heater,window);
 
             ecs.Regulate();
 
